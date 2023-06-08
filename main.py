@@ -2,6 +2,8 @@ import argparse
 from csv import DictReader
 from algorithms import algorithms_list
 
+BUDGET = 500
+
 
 def read_dataset_file(dataset_filename):
     dataset = {}
@@ -21,7 +23,7 @@ def print_results(investments, total_cost, total_return):
 
 def main(algorithm_choice, dataset_filename):
     dataset = read_dataset_file(dataset_filename)
-    results = algorithms_list[algorithm_choice](dataset)
+    results = algorithms_list[algorithm_choice](dataset, BUDGET)
     if results is None:
         print("No possibility")
     else:
