@@ -1,8 +1,16 @@
 import argparse
+from csv import DictReader
 from algorithms import algorithms_list
 
 
-def main(algorithm_choice, dataset):
+def read_dataset_file(dataset_filename):
+    with open(dataset_filename) as csv_file:
+        csv_reader = DictReader(csv_file)
+        return list(csv_reader)
+
+
+def main(algorithm_choice, dataset_filename):
+    dataset = read_dataset_file(dataset_filename)
     results = algorithms_list[algorithm_choice](dataset)
     print(*results)
 
