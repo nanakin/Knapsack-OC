@@ -22,7 +22,10 @@ def print_results(investments, total_cost, total_return):
 def main(algorithm_choice, dataset_filename):
     dataset = read_dataset_file(dataset_filename)
     results = algorithms_list[algorithm_choice](dataset)
-    print_results(*results)
+    if results is None:
+        print("No possibility")
+    else:
+        print_results(*results)
 
 
 if __name__ == "__main__":
