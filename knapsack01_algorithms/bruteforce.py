@@ -7,7 +7,7 @@ def powerset(iterable):
     return chain.from_iterable(combinations(dataset, size) for size in range(len(dataset) + 1))
 
 
-def bruteforce_main(dataset, budget):
+def knapsack01_bruteforce(dataset, budget):
     best_combination = {"total_return": -1}
     for combination in powerset(dataset.keys()):
         # for each combination evaluate the total price and profit
