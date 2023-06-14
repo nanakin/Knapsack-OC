@@ -22,14 +22,16 @@ def read_dataset_file(dataset_filename: str) -> dict:
     with open(dataset_filename) as csv_file:
         csv_reader = DictReader(csv_file)
         for row in csv_reader:
-            dataset[row["name"]] = {"price": decimal_to_integer_x100(row["price"]),
-                                    "profit": decimal_to_integer_x100(row["profit"])}
+            price_x100 = decimal_to_integer_x100(row["price"])
+            if price_x100 >= 0:
+                dataset[row["name"]] = {"price": price_x100,
+                                        "profit": decimal_to_integer_x100(row["profit"])}
     return dataset
 
 
 def print_results(investments: list, total_cost: int, total_return: int):
     """Print the algorithm result."""
-    print("Investments:")
+    print(f"{len(investments)} Investments:")
     for investment in investments:
         print(investment)
     print(f"\nTotal cost: {integer_x100_to_decimal(total_cost)}€"
