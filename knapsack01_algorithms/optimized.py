@@ -1,22 +1,26 @@
 def knapsack01_optimized(dataset: dict, budget: int):
-    print("optimized")
     prices = [share_data["price"] for share_data in dataset.values()]
     profits = [share_data["profit"] for share_data in dataset.values()]
     shares_id = list(dataset.keys())
-
-    returns_by_budget = [0 for _ in range(budget + 1)]
     investments = []
     total_cost = 0
-    for n_shares in range(len(prices)):
-        best_value_for_row_items = returns_by_budget[budget]
-        for curr_budget in range(budget, 0, -1):
-            if prices[n_shares] <= curr_budget:
-                returns_by_budget[curr_budget] = max(profits[n_shares] + returns_by_budget[curr_budget - prices[n_shares]], returns_by_budget[curr_budget])
-            else:
-                break
-        if returns_by_budget[budget] != best_value_for_row_items:
-            share_id = shares_id[n_shares]
-            investments.append(share_id)
-            total_cost += dataset[share_id]["price"]
 
-    return investments, total_cost, returns_by_budget[budget]
+    known_profits = [[0 for _ in range(budget + 1)]
+                     for _ in range(len(dataset) + 1)]
+    for n in range(len(dataset)):
+        for curr_budget in range(1, budget + 1):
+            previous_row_profit = known_profits[n][curr_budget]
+            if prices[n] <= curr_budget:
+                known_profits[n+1][curr_budget] = max(profits[n] + known_profits[n][curr_budget - prices[n]],
+                                                      previous_row_profit)
+            else:
+                known_profits[n+1][curr_budget] = previous_row_profit
+
+    remaining_budget = budget
+    for n in range(len(dataset), 0, -1):
+        if known_profits[n][remaining_budget] != known_profits[n-1][remaining_budget]:
+            investments.insert(0, shares_id[n-1])
+            total_cost += prices[n-1]
+            remaining_budget = remaining_budget - prices[n-1]
+
+    return investments, total_cost, known_profits[-1][budget]
