@@ -2,7 +2,7 @@ import argparse
 from csv import DictReader
 from knapsack01_algorithms import algorithms_list
 
-BUDGET = 500
+DEFAULT_BUDGET = 500
 
 
 def decimal_to_integer_x100(decimal: str) -> int:
@@ -38,10 +38,10 @@ def print_results(investments: list, total_cost: int, total_return: int):
           f"\nTotal return: {integer_x100_to_decimal(total_return)}€")
 
 
-def main(algorithm_choice: str, dataset_filename: str):
+def main(algorithm_choice: str, dataset_filename: str, budget: int):
     """Read the given input dataset, solve the problem with the given algorithm then print the result."""
     dataset = read_dataset_file(dataset_filename)
-    results = algorithms_list[algorithm_choice](dataset, BUDGET * 100)
+    results = algorithms_list[algorithm_choice](dataset, budget * 100)
     if results is None:
         print("No possibility")
     else:
@@ -54,5 +54,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Chess Tournament Manager")
     parser.add_argument('--algo', default=algorithms_choices[0], choices=algorithms_choices, help="Select a solver")
     parser.add_argument("-d", "--dataset", required=True, help="Provide shares data set in CSV format")
+    parser.add_argument("-b", "--budget", type=int, default=DEFAULT_BUDGET, help="Provide the maximum budget")
     args = parser.parse_args()
-    main(args.algo, args.dataset)
+    main(args.algo, args.dataset, args.budget)
