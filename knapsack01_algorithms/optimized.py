@@ -1,5 +1,8 @@
 def knapsack01_optimized(dataset: dict, budget: int) -> tuple[list, int, int]:
-    """A Dynamic Programming solution for the 0-1 knapsack problem."""
+    """
+    Select the best shares combination in such a way that the total investment produces the maximum profit.
+    A Dynamic Programming solution for the 0-1 knapsack problem.
+    """
 
     prices = [share_data["price"] for share_data in dataset.values()]
     profits = [share_data["profit"] for share_data in dataset.values()]

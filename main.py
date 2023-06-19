@@ -51,7 +51,7 @@ def main(algorithm_choice: str, dataset_filename: str, budget: int):
 if __name__ == "__main__":
     # program entry point
     algorithms_choices = list(algorithms_list.keys())
-    parser = argparse.ArgumentParser(description="Chess Tournament Manager")
+    parser = argparse.ArgumentParser(description="Best Investments finder")
     parser.add_argument('--algo', default=algorithms_choices[0], choices=algorithms_choices, help="Select a solver")
     parser.add_argument("-d", "--dataset", required=True, help="Provide shares data set in CSV format")
     parser.add_argument("-b", "--budget", type=int, default=DEFAULT_BUDGET, help="Provide the maximum budget")
