@@ -25,7 +25,7 @@ def read_dataset_file(dataset_filename: str) -> dict:
             price_x100 = decimal_to_integer_x100(row["price"])
             if price_x100 >= 0:
                 dataset[row["name"]] = {"price": price_x100,
-                                        "profit": decimal_to_integer_x100(row["profit"])}
+                                        "profit": float(row["profit"]) * float(row["price"]) / 100}
     return dataset
 
 
