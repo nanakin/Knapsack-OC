@@ -40,4 +40,4 @@ def knapsack01_optimized(dataset: dict, budget: int) -> tuple[list, int, int]:
             remaining_budget = remaining_budget - prices[n-1]
 
     # return the solution data
-    return investments, total_cost, known_profits[-1][budget]
+    return (investments, total_cost, known_profits[-1][budget]) if investments else None
