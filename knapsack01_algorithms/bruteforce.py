@@ -7,7 +7,7 @@ def powerset(id_list: list):
     # we want all combinations for all possible size (from 0 to the size of the given list)
     # combinations('ABCD', 2) --> AB AC AD BC BD CD
     # chain.from_iterable(['ABC', 'DEF']) --> A B C D E F
-    return chain.from_iterable(combinations(id_list, size) for size in range(len(id_list) + 1))
+    return chain.from_iterable(combinations(id_list, size) for size in range(1, len(id_list) + 1))
 
 
 def knapsack01_bruteforce(dataset: dict, budget: int) -> tuple[list, int, int] | None:

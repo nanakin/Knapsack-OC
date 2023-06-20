@@ -13,7 +13,7 @@ def decimal_to_integer_x100(decimal: str) -> int:
 
 def integer_x100_to_decimal(number: int) -> str:
     """Convert an integer WWFF repr. a decimal number (2 digits precision) to its string repr. 'WW.FF'."""
-    return f"{number//100:.2f}"
+    return f"{number//pow(10, 2):.2f}"
 
 
 def read_dataset_file(dataset_filename: str) -> dict:
@@ -35,7 +35,7 @@ def print_results(investments: list, total_cost: int, total_return: int):
     for investment in investments:
         print(investment)
     print(f"\nTotal cost: {integer_x100_to_decimal(total_cost)}€"
-          f"\nTotal return: {integer_x100_to_decimal(total_return)}€")
+          f"\nTotal return: {total_return:.2f}€")
 
 
 def main(algorithm_choice: str, dataset_filename: str, budget: int):
@@ -51,7 +51,7 @@ def main(algorithm_choice: str, dataset_filename: str, budget: int):
 if __name__ == "__main__":
     # program entry point
     algorithms_choices = list(algorithms_list.keys())
-    parser = argparse.ArgumentParser(description="Best Investments finder")
+    parser = argparse.ArgumentParser(description="Best Investments Finder")
     parser.add_argument('--algo', default=algorithms_choices[0], choices=algorithms_choices, help="Select a solver")
     parser.add_argument("-d", "--dataset", required=True, help="Provide shares data set in CSV format")
     parser.add_argument("-b", "--budget", type=int, default=DEFAULT_BUDGET, help="Provide the maximum budget")
